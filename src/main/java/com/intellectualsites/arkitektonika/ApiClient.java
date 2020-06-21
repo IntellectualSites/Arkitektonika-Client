@@ -25,6 +25,7 @@ package com.intellectualsites.arkitektonika;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.InputStream;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
@@ -38,7 +39,7 @@ public interface ApiClient {
      *
      * @return API version
      */
-    ApiVersion getApiVersion();
+    @NotNull ApiVersion getApiVersion();
 
     /**
      * Check if the specified API address is
@@ -47,6 +48,47 @@ public interface ApiClient {
      * @param executorService Executor service used to complete the request
      * @return Future that completes with the result of the query
      */
-    CompletableFuture<Boolean> checkCompatibility(@NotNull final ExecutorService executorService);
+    @NotNull CompletableFuture<Boolean> checkCompatibility(@NotNull final ExecutorService executorService);
+
+    /**
+     * Upload a schematic via an input stream
+     *
+     * @param inputStream Input stream to read schematic data from
+     * @param executorService Executor service used to complete the request
+     * @return Future that completes with the access and deletion keys of the
+     *         uploaded resource, or fails with an exception
+     */
+    @NotNull CompletableFuture<SchematicKeys> upload(@NotNull final InputStream inputStream,
+        @NotNull final ExecutorService executorService);
+
+    /**
+     * Check the status of a remote schematic
+     *
+     * @param key Schematic access key
+     * @param executorService Executor service used to complete the request
+     * @return Future that completes with the resource status
+     */
+    @NotNull CompletableFuture<ResourceStatus> checkStatus(@NotNull final String key,
+        @NotNull final ExecutorService executorService);
+
+    /**
+     * Attempt to delete a schematic from the remote service
+     *
+     * @param key Deletion key
+     * @param executorService Executor service used to complete the request
+     * @return Future that completes with the result
+     */
+    @NotNull CompletableFuture<Boolean> delete(@NotNull final String key,
+        @NotNull final ExecutorService executorService);
+
+    /**
+     * Attempt to download a schematic from the remote service
+     *
+     * @param key Download key
+     * @param executorService Executor service used to complete the request
+     * @return Future that completes with the result
+     */
+    @NotNull CompletableFuture<Schematic> download(@NotNull final String key,
+        @NotNull final ExecutorService executorService);
 
 }

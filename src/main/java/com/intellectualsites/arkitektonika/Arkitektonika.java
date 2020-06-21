@@ -25,6 +25,10 @@ package com.intellectualsites.arkitektonika;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -80,6 +84,60 @@ import java.util.concurrent.Executors;
      */
     @NotNull public CompletableFuture<Boolean> isCompatible() {
         return this.client.checkCompatibility(this.executorService);
+    }
+
+    /**
+     * Upload a schematic via an input stream and return
+     * the generated access keys
+     *
+     * @param stream Stream containing the schematic
+     * @return Future that completes with the generated keys
+     */
+    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final InputStream stream) {
+        return this.client.upload(stream, this.executorService);
+    }
+
+    /**
+     * Upload the schematic that is contained in a given file
+     * and return the generated access keys
+     *
+     * @param file Schematic File
+     * @return Future that completes with the generated keys
+     * @throws FileNotFoundException If the file does not exist
+     */
+    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final File file) throws
+        FileNotFoundException {
+        return this.upload(new FileInputStream(file));
+    }
+
+    /**
+     * Check the status of a remote schematic
+     *
+     * @param key Schematic access key
+     * @return Future that completes with the resource status
+     */
+    @NotNull public CompletableFuture<ResourceStatus> checkStatus(@NotNull final String key) {
+        return this.client.checkStatus(key, this.executorService);
+    }
+
+    /**
+     * Attempt to delete a schematic from the remote service
+     *
+     * @param key Deletion key
+     * @return Future that completes with the result
+     */
+    @NotNull public CompletableFuture<Boolean> delete(@NotNull final String key) {
+        return this.client.delete(key, this.executorService);
+    }
+
+    /**
+     * Attempt to download a schematic from the remote service
+     *
+     * @param key Download key
+     * @return Future that completes with the result
+     */
+    @NotNull public CompletableFuture<Schematic> download(@NotNull final String key) {
+        return this.client.download(key, this.executorService);
     }
 
 

@@ -1,7 +1,10 @@
 package com.intellectualsites.arkitektonika;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.File;
 import java.io.FileReader;
@@ -9,9 +12,11 @@ import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestArkitektonika {
 
     private static String url;
+    private static String uploadKey;
 
     @BeforeAll public static void setup() throws Exception {
         final Properties properties = new Properties();
@@ -25,6 +30,27 @@ public class TestArkitektonika {
     @Test public void testConstruction() throws Exception {
         final Arkitektonika arkitektonika = Arkitektonika.builder().withUrl(url).build();
         assertTrue(arkitektonika.isCompatible().get());
+    }
+
+    @Test @Order(1) public void testUpload() throws Exception {
+        final Arkitektonika arkitektonika = Arkitektonika.builder().withUrl(url).build();
+        final SchematicKeys schematicKeys = arkitektonika.upload(new File("src/test/resources/test.schem")).get();
+        assertNotNull(schematicKeys);
+        assertFalse(schematicKeys.getAccessKey().isEmpty());
+        uploadKey = schematicKeys.getAccessKey();
+    }
+
+    @Test @Order(2) public void testExistence() throws Exception {
+        final Arkitektonika arkitektonika = Arkitektonika.builder().withUrl(url).build();
+        assertEquals(ResourceStatus.OK, arkitektonika.checkStatus(uploadKey).get());
+    }
+
+    @Test @Order(3) public void testDownload() throws Exception {
+        final Arkitektonika arkitektonika = Arkitektonika.builder().withUrl(url).build();
+    }
+
+    @Test @Order(4) public void testDeletion() throws Exception {
+        final Arkitektonika arkitektonika = Arkitektonika.builder().withUrl(url).build();
     }
 
 }
