@@ -23,5 +23,37 @@
 //
 package com.intellectualsites.arkitektonika;
 
-public class Schematic {
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Object that represents a downloaded schematic
+ */
+public final class Schematic {
+
+    private final String key;
+    private final byte[] content;
+
+    public Schematic(@NotNull final String key, @NotNull final byte[] content) {
+        this.key = key;
+        this.content = content;
+    }
+
+    /**
+     * Get the schematic key
+     *
+     * @return Schematic key
+     */
+    @NotNull public String getKey() {
+        return this.key;
+    }
+
+    /**
+     * Get the (raw) schematic content
+     *
+     * @return Schematic content
+     */
+    @NotNull public byte[] getContent() {
+        return this.content;
+    }
+
 }

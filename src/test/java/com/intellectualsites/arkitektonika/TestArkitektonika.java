@@ -17,6 +17,7 @@ public class TestArkitektonika {
 
     private static String url;
     private static String uploadKey;
+    private static String deletionKey;
 
     @BeforeAll public static void setup() throws Exception {
         final Properties properties = new Properties();
@@ -38,6 +39,7 @@ public class TestArkitektonika {
         assertNotNull(schematicKeys);
         assertFalse(schematicKeys.getAccessKey().isEmpty());
         uploadKey = schematicKeys.getAccessKey();
+        deletionKey = schematicKeys.getDeletionKey();
     }
 
     @Test @Order(2) public void testExistence() throws Exception {
@@ -47,10 +49,12 @@ public class TestArkitektonika {
 
     @Test @Order(3) public void testDownload() throws Exception {
         final Arkitektonika arkitektonika = Arkitektonika.builder().withUrl(url).build();
+        assertTrue(arkitektonika.download(uploadKey).get().getContent().length > 0);
     }
 
     @Test @Order(4) public void testDeletion() throws Exception {
         final Arkitektonika arkitektonika = Arkitektonika.builder().withUrl(url).build();
+        assertTrue(arkitektonika.delete(deletionKey).get());
     }
 
 }

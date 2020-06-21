@@ -81,7 +81,7 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
             })
             .ifSuccess(success -> {
                final JsonNode node = success.getBody();
-               future.complete(new SchematicKeys(node.getObject().getString("download_key"), node.getObject().getString("download_key")));
+               future.complete(new SchematicKeys(node.getObject().getString("download_key"), node.getObject().getString("delete_key")));
             }));
         return future;
     }
@@ -110,13 +110,31 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
     }
 
     @Override @NotNull public CompletableFuture<Boolean> delete(@NotNull String key,
-        @NotNull ExecutorService executorService) {
-        return null;
+        @NotNull final ExecutorService service) {
+        final CompletableFuture<Boolean> future = new CompletableFuture<>();
+        service.execute(() -> Unirest.delete("/delete/{key}").routeParam("key", key).asBytes()
+            .ifFailure(failure -> {
+                if (failure.getParsingError().isPresent()) {
+                    future.completeExceptionally(new ResourceRetrievalException("/delete/" + key, failure.getParsingError().get()));
+                } else {
+                    future.completeExceptionally(new ResourceRetrievalException("/delete/" + key, failure.getStatus(), failure.getStatusText()));
+                }
+            }).ifSuccess(success -> future.complete(true)));
+        return future;
     }
 
     @Override @NotNull public CompletableFuture<Schematic> download(@NotNull String key,
-        @NotNull ExecutorService executorService) {
-        return null;
+        @NotNull final ExecutorService service) {
+        final CompletableFuture<Schematic> future = new CompletableFuture<>();
+        service.execute(() -> Unirest.get("/download/{key}").routeParam("key", key).asBytes()
+            .ifFailure(failure -> {
+                if (failure.getParsingError().isPresent()) {
+                    future.completeExceptionally(new ResourceRetrievalException("/download/" + key, failure.getParsingError().get()));
+                } else {
+                    future.completeExceptionally(new ResourceRetrievalException("/download/" + key, failure.getStatus(), failure.getStatusText()));
+                }
+            }).ifSuccess(success -> future.complete(new Schematic(key, success.getBody()))));
+        return future;
     }
 
 }
