@@ -25,7 +25,7 @@ package com.intellectualsites.arkitektonika;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
@@ -58,7 +58,7 @@ public interface ApiClient {
      * @return Future that completes with the access and deletion keys of the
      *         uploaded resource, or fails with an exception
      */
-    @NotNull CompletableFuture<SchematicKeys> upload(@NotNull final InputStream inputStream,
+    @NotNull CompletableFuture<SchematicKeys> upload(@NotNull final FileInputStream inputStream,
         @NotNull final ExecutorService executorService);
 
     /**

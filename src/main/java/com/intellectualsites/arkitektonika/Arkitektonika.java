@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -93,7 +92,7 @@ import java.util.concurrent.Executors;
      * @param stream Stream containing the schematic
      * @return Future that completes with the generated keys
      */
-    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final InputStream stream) {
+    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final FileInputStream stream) {
         return this.client.upload(stream, this.executorService);
     }
 
