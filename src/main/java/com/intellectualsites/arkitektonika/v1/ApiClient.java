@@ -40,12 +40,13 @@ import com.intellectualsites.http.external.GsonMapper;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.File;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
@@ -56,7 +57,7 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
     public ApiClient(@NotNull final String url) {
         this.httpClient = HttpClient.newBuilder().withBaseURL(url).withEntityMapper(EntityMapper.newInstance()
             .registerDeserializer(JsonObject.class, GsonMapper.deserializer(JsonObject.class, new GsonBuilder().create()))
-            .registerSerializer(FileInputStream.class, new SchematicSerializer())).build();
+            .registerSerializer(File.class, new SchematicSerializer())).build();
     }
 
     @NotNull @Override public ApiVersion getApiVersion() {
@@ -66,9 +67,8 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
     @NotNull @Override public CompletableFuture<Boolean> checkCompatibility(@NotNull final ExecutorService service) {
         return CompletableFuture.supplyAsync(() -> {
            final HttpResponse response =
-               httpClient.get("/").onStatus(200, httpResponse -> System.out.println("WOO!"))
+               httpClient.get("/").onStatus(200, ignore -> {})
                               .onRemaining(r -> {
-                                  System.out.println("WAT?");
                                   throw new ResourceRetrievalException("/", r.getStatusCode(), r.getStatus());
                               }).execute();
            final JsonObject object = Objects.requireNonNull(response, "Failed to retrieve response")
@@ -77,10 +77,10 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
         }, service);
     }
 
-    @NotNull @Override public CompletableFuture<SchematicKeys> upload(@NotNull final FileInputStream inputStream,
+    @NotNull @Override public CompletableFuture<SchematicKeys> upload(@NotNull final File file,
         @NotNull final ExecutorService service) {
         return CompletableFuture.supplyAsync(() -> {
-           final HttpResponse response = httpClient.post("/upload").withInput(() -> inputStream)
+           final HttpResponse response = httpClient.post("/upload").withInput(() -> file)
                .onStatus(400, httpResponse -> {
                     throw new InvalidFormatException("/upload", 400, httpResponse.getStatus());
                 })
@@ -142,28 +142,18 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
     }
 
 
-    private static final class SchematicSerializer implements EntityMapper.EntitySerializer<FileInputStream> {
+    private static final class SchematicSerializer implements EntityMapper.EntitySerializer<File> {
 
-        private final String boundary = Long.toHexString(System.currentTimeMillis());
+        private final String boundary = UUID.randomUUID().toString();
 
-        @Override @NotNull public byte[] serialize(@NotNull final FileInputStream inputStream) {
-            try (final InputStream in = inputStream;
-                 final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        @Override @NotNull public byte[] serialize(@NotNull final File file) {
+            try (final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                  final PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(byteArrayOutputStream,
                      StandardCharsets.UTF_8), true)) {
                 printWriter.append("--").append(this.boundary).append("\r\n");
-                printWriter.append("Content-Disposition: form-data; name=\"param\"\r\n");
-                printWriter.append("Content-Type: text/plain; charset=").append(StandardCharsets.UTF_8.displayName()).append("\r\n");
-                printWriter.append("\r\nvalue\r\n").flush();
-                printWriter.append("--").append(this.boundary).append("\r\n");
-                printWriter.append("Content-Disposition: form-data; name=\"schematic\"; filename=\"upload.schem\"\r\n");
-                printWriter.append("Content-Type: application/x-binary\r\n");
-                printWriter.append("Content-Transfer-Encoding: binary\r\n\r\n").flush();
-                final byte[] buffer = new byte[1024];
-                int len;
-                while ((len = inputStream.read(buffer)) != -1) {
-                    byteArrayOutputStream.write(buffer, 0, len);
-                }
+                printWriter.append("Content-Disposition: form-data; name=\"schematic\"; filename=\"plot.schem\"\r\n");
+                printWriter.append("Content-Type: application/octet-stream\r\n\r\n").flush();
+                Files.copy(file.toPath(), byteArrayOutputStream);
                 byteArrayOutputStream.flush();
                 printWriter.append("\r\n").flush();
                 printWriter.append("--").append(this.boundary).append("--\r\n").flush();

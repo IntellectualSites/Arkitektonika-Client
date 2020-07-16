@@ -115,6 +115,11 @@
             <id>IS Enginehub Proxy</id>
             <url>https://mvn.intellectualsites.com/content/repositories/enginehub/</url>
         </repository>
+        <repository>
+            <id>intellectualsites-snapshots</id>
+            <name>IntellectualSites Snapshots</name>
+            <url>https://mvn.intellectualsites.com/content/repositories/snapshots</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -126,7 +131,7 @@
         <dependency>
             <groupId>com.intellectualsites.http</groupId>
             <artifactId>HTTP4J</artifactId>
-            <version>1.5-SNAPSHOT</version>
+            <version>1.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -140,6 +145,12 @@
             <artifactId>annotations</artifactId>
             <version>19.0.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

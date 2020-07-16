@@ -26,8 +26,6 @@ package com.intellectualsites.arkitektonika;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -40,7 +38,8 @@ import java.util.concurrent.Executors;
  * @version 1.0
  * @since 2020-06-21
  */
-@SuppressWarnings("unused") public class Arkitektonika {
+@SuppressWarnings("unused")
+public class Arkitektonika {
 
     /**
      * Factory used to construct new {@link ApiClient} instances
@@ -86,27 +85,14 @@ import java.util.concurrent.Executors;
     }
 
     /**
-     * Upload a schematic via an input stream and return
-     * the generated access keys
-     *
-     * @param stream Stream containing the schematic
-     * @return Future that completes with the generated keys
-     */
-    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final FileInputStream stream) {
-        return this.client.upload(stream, this.executorService);
-    }
-
-    /**
      * Upload the schematic that is contained in a given file
      * and return the generated access keys
      *
      * @param file Schematic File
      * @return Future that completes with the generated keys
-     * @throws FileNotFoundException If the file does not exist
      */
-    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final File file) throws
-        FileNotFoundException {
-        return this.upload(new FileInputStream(file));
+    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final File file) {
+        return this.client.upload(file, this.executorService);
     }
 
     /**
