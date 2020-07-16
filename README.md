@@ -27,7 +27,7 @@ arkitektonika.upload(new File("your/file.schem")).whenComplete((keys, throwable)
 
 ## Dependencies
 
-The client uses [unirest](https://github.com/Kong/unirest-java) to interact with the Arkitektonika
+The client uses [HTTP4j](https://github.com/Sauilitired/HTTP4J) to interact with the Arkitektonika
 REST API. This will need to be available on the classpath for the client to function.
 
 ## Maven
