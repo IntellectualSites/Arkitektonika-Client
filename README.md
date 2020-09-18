@@ -42,7 +42,7 @@ REST API. This will need to be available on the classpath for the client to func
     <dependency>
       <groupId>com.intellectualsites.arkitektonika</groupId>
       <artifactId>Arkitektonika-Client</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>2.0-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
