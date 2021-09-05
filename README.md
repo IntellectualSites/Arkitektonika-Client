@@ -30,19 +30,25 @@ arkitektonika.upload(new File("your/file.schem")).whenComplete((keys, throwable)
 The client uses [HTTP4j](https://github.com/Sauilitired/HTTP4J) to interact with the Arkitektonika
 REST API. This will need to be available on the classpath for the client to function.
 
-## Maven
+## Maven Deployment
+Releases are published to the central repository, snapshots are published to S01 OSS Sonatype.
+
+```kotlin
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly("com.intellectualsites.arkitektonika:Arkitektonika-Client:2.1.0")
+}
+```
+
 ```xml
-<repositories>
-    <repository>
-        <id>intellectualsites-snapshots</id>
-        <url>https://mvn.intellectualsites.com/content/repositories/snapshots/</url>
-    </repository>
-</repositories>
 <dependencies>
     <dependency>
       <groupId>com.intellectualsites.arkitektonika</groupId>
       <artifactId>Arkitektonika-Client</artifactId>
-      <version>2.0-SNAPSHOT</version>
+      <version>2.1.0</version>
     </dependency>
 </dependencies>
 ```
