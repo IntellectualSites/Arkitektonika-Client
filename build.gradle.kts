@@ -40,7 +40,7 @@ configurations.all {
 }
 
 group = "com.intellectualsites.arkitektonika"
-version = "2.1.0"
+version = "2.1.1"
 var versuffix by extra("SNAPSHOT")
 version = if (!project.hasProperty("release")) {
     String.format("%s-%s", project.version, versuffix)
