@@ -22,7 +22,7 @@ repositories {
 dependencies {
     implementation("com.intellectualsites.http:HTTP4J:1.3")
     implementation("org.jetbrains:annotations:22.0.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.0")
     compileOnly("com.google.code.gson:gson:2.8.8")
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.6")
 }
