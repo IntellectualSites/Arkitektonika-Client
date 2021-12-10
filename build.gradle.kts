@@ -21,7 +21,7 @@ dependencies {
     implementation("com.intellectualsites.http:HTTP4J:1.3")
     implementation("org.jetbrains:annotations:23.0.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    compileOnly("com.google.code.gson:gson:2.8.9")
+    compileOnly("com.google.code.gson:gson:2.8.8")
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.7")
 }
 
@@ -38,7 +38,7 @@ configurations.all {
 }
 
 group = "com.intellectualsites.arkitektonika"
-version = "2.1.1-SNAPSHOT"
+version = "2.1.1"
 
 configure<LicenseExtension> {
     header.set(resources.text.fromFile(file("LICENSE")))
@@ -66,7 +66,7 @@ tasks {
             "implNote:a:Implementation Note:"
         )
         opt.addBooleanOption("html5", true)
-        opt.links("https://javadoc.io/doc/org.jetbrains/annotations/22.0.0/")
+        opt.links("https://javadoc.io/doc/org.jetbrains/annotations/23.0.0/")
     }
 }
 
