@@ -38,7 +38,7 @@ configurations.all {
 }
 
 group = "com.intellectualsites.arkitektonika"
-version = "2.1.1"
+version = "2.1.2-SNAPSHOT"
 
 configure<LicenseExtension> {
     header.set(resources.text.fromFile(file("LICENSE")))
