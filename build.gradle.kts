@@ -22,7 +22,7 @@ dependencies {
     implementation("org.jetbrains:annotations:23.0.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
     compileOnly("com.google.code.gson:gson:2.8.8")
-    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.11")
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.12")
 }
 
 java {
