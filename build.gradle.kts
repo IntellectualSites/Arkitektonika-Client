@@ -6,7 +6,7 @@ plugins {
     `maven-publish`
     signing
 
-    id("com.diffplug.spotless") version "6.12.1"
+    id("com.diffplug.spotless") version "6.13.0"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
