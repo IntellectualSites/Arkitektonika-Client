@@ -26,7 +26,7 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(16))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 tasks.compileJava.configure {
@@ -34,7 +34,7 @@ tasks.compileJava.configure {
 }
 
 configurations.all {
-    attributes.attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 16)
+    attributes.attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 17)
 }
 
 group = "com.intellectualsites.arkitektonika"
@@ -67,7 +67,7 @@ tasks {
             "implNote:a:Implementation Note:"
         )
         opt.addBooleanOption("html5", true)
-        opt.links("https://javadoc.io/doc/org.jetbrains/annotations/23.0.0/")
+        opt.links("https://javadoc.io/doc/org.jetbrains/annotations/24.0.0/")
     }
 }
 
@@ -109,6 +109,16 @@ publishing {
                     developer {
                         id.set("Citymonstret")
                         name.set("Alexander Söderberg")
+                        organization.set("IntellectualSites")
+                        organizationUrl.set("https://github.com/IntellectualSites")
+                    }
+                    developer {
+                        id.set("NotMyFault")
+                        name.set("Alexander Brandes")
+                        organization.set("IntellectualSites")
+                        organizationUrl.set("https://github.com/IntellectualSites")
+                        email.set("contact<at>notmyfault.dev")
+
                     }
                 }
 
