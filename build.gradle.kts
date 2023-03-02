@@ -68,6 +68,10 @@ tasks {
         )
         opt.addBooleanOption("html5", true)
         opt.links("https://javadoc.io/doc/org.jetbrains/annotations/24.0.0/")
+        opt.isLinkSource = true
+        opt.isUse = true
+        opt.encoding("UTF-8")
+        opt.keyWords()
     }
 }
 
