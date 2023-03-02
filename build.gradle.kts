@@ -38,7 +38,7 @@ configurations.all {
 }
 
 group = "com.intellectualsites.arkitektonika"
-version = "2.1.2-SNAPSHOT"
+version = "2.1.2"
 
 spotless {
     java {

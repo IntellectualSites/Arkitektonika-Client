@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.intellectualsites.arkitektonika:Arkitektonika-Client:2.1.0")
+    compileOnly("com.intellectualsites.arkitektonika:Arkitektonika-Client:2.1.2")
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
     <dependency>
       <groupId>com.intellectualsites.arkitektonika</groupId>
       <artifactId>Arkitektonika-Client</artifactId>
-      <version>2.1.0</version>
+      <version>2.1.2</version>
     </dependency>
 </dependencies>
 ```
