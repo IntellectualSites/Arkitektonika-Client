@@ -4,6 +4,7 @@
     "config:base",
     ":semanticCommitsDisabled"
   ],
+  "automerge": true,
   "labels": ["dependencies"],
   "rebaseWhen": "conflicted",
   "schedule": ["on the first day of the month"]
