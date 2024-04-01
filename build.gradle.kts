@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     implementation("com.intellectualsites.http:HTTP4J:1.3")
-    implementation("org.jetbrains:annotations:24.0.1")
+    implementation("org.jetbrains:annotations:24.1.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
     compileOnly("com.google.code.gson:gson:2.8.8")
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.0")
