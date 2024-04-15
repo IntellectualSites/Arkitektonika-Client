@@ -22,7 +22,7 @@ dependencies {
     implementation("org.jetbrains:annotations:24.1.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
     compileOnly("com.google.code.gson:gson:2.8.8")
-    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.0")
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.16")
 }
 
 java {
@@ -67,16 +67,22 @@ tasks {
             "implNote:a:Implementation Note:"
         )
         opt.addBooleanOption("html5", true)
-        opt.links("https://javadoc.io/doc/org.jetbrains/annotations/24.0.0/")
+        opt.links("https://javadoc.io/doc/org.jetbrains/annotations/24.1.0/")
         opt.isLinkSource = true
         opt.isUse = true
         opt.encoding("UTF-8")
         opt.keyWords()
+        opt.noTimestamp()
+    }
+
+    withType<AbstractArchiveTask>().configureEach {
+        isPreserveFileTimestamps = false
+        isReproducibleFileOrder = true
     }
 }
 
 signing {
-    if (!version.toString().endsWith("-SNAPSHOT")) {
+    if (!project.hasProperty("skip.signing") && !version.toString().endsWith("-SNAPSHOT")) {
         val signingKey: String? by project
         val signingPassword: String? by project
         useInMemoryPgpKeys(signingKey, signingPassword)

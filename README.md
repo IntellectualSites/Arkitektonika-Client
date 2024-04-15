@@ -27,7 +27,7 @@ arkitektonika.upload(new File("your/file.schem")).whenComplete((keys, throwable)
 
 ## Dependencies
 
-The client uses [HTTP4j](https://github.com/Sauilitired/HTTP4J) to interact with the Arkitektonika
+The client uses [HTTP4J](https://github.com/Sauilitired/HTTP4J) to interact with the Arkitektonika
 REST API. This will need to be available on the classpath for the client to function.
 
 ## Maven Deployment
@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.intellectualsites.arkitektonika:Arkitektonika-Client:2.1.2")
+    compileOnly("com.intellectualsites.arkitektonika:Arkitektonika-Client:VERSION")
 }
 ```
 
@@ -48,7 +48,7 @@ dependencies {
     <dependency>
       <groupId>com.intellectualsites.arkitektonika</groupId>
       <artifactId>Arkitektonika-Client</artifactId>
-      <version>2.1.2</version>
+      <version>VERSION</version>
     </dependency>
 </dependencies>
 ```
