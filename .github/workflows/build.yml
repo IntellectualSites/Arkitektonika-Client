@@ -7,7 +7,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@b5418f5a58f5fd2eb486dd7efb368fe7be7eae45 # v2
+        uses: gradle/actions/wrapper-validation@v3
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
