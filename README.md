@@ -31,7 +31,7 @@ The client uses [HTTP4J](https://github.com/Sauilitired/HTTP4J) to interact with
 REST API. This will need to be available on the classpath for the client to function.
 
 ## Maven Deployment
-Releases are published to the central repository, snapshots are published to S01 OSS Sonatype.
+Releases are published to the central repository.
 
 ```kotlin
 repositories {
