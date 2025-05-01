@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.intellectualsites.http:HTTP4J:1.3")
+    implementation("com.intellectualsites.http:HTTP4J:1.8")
     implementation("org.jetbrains:annotations:26.0.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.12.2")
     compileOnly("com.google.code.gson:gson:2.13.0")
