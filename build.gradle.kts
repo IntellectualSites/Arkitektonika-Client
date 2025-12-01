@@ -7,7 +7,7 @@ plugins {
     signing
 
     id("com.diffplug.spotless") version "8.1.0"
-    id("com.vanniktech.maven.publish") version "0.33.0"
+    id("com.vanniktech.maven.publish") version "0.35.0"
 }
 
 repositories {
