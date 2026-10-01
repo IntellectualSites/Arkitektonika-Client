@@ -6,7 +6,7 @@ plugins {
     java
     signing
 
-    id("com.diffplug.spotless") version "8.10.1"
+    id("com.diffplug.spotless") version "8.10.3"
     id("com.vanniktech.maven.publish") version "0.33.0"
 }
 
